@@ -22,7 +22,7 @@ public class ProductController {
        @Autowired
        private ProductRepository productRepository;
        // GET /products -> Get all products
-       @GetMapping("/")
+       @GetMapping("")
        public List<Product> getAllProducts() {
               return productRepository.findAll();
        }
@@ -42,7 +42,6 @@ public class ProductController {
        public String updateProduct(@PathVariable Integer id, @RequestBody Product productDetails) {
               Product product = productRepository.findById(id).orElse(null);
               if (product != null) {
-                     product.setAsset_id(productDetails.getAsset_id());
                      product.setType(productDetails.getType());  
                      product.setTicker(productDetails.getTicker());
                      product.setName(productDetails.getName());
