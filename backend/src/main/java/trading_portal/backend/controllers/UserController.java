@@ -11,32 +11,10 @@ import java.util.List;
 
 //@RestController
 //@RequestMapping("/")
+//@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/auth")
-//@CrossOrigin(origins = "http://localhost:4200")
 public class UserController {
-
-//    @Autowired
-//    private UserRepository userRepository;
-//
-//    // GET /users -> Get all users
-//    @GetMapping("/users")
-//    public List<User> getAllUsers() {
-//        return userRepository.findAll();
-//    }
-//
-//    // GET /users/{email} -> Get user by email (username)
-//    @GetMapping("/users/{email}")
-//    public User getUserByEmail(@PathVariable String email) {
-//        return userRepository.findByEmail(email)
-//                .orElseThrow(() -> new RuntimeException("User not found with email: " + email));
-//    }
-//
-//    // POST /users -> Add new user
-//    @PostMapping("/users")
-//    public User createUser(@RequestBody User user) {
-//        return userRepository.save(user);
-//    }
 
     @Autowired
     private UserService userService;

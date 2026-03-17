@@ -3,6 +3,7 @@ package trading_portal.backend.services.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import trading_portal.backend.entity.Roles;
 import trading_portal.backend.entity.User;
 import trading_portal.backend.repository.UserRepository;
 import trading_portal.backend.services.UserService;
@@ -20,6 +21,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public String registerUser(User user) {
 
+        user.setRole(Roles.USER);
         Optional<User> existingUser = userRepository.findByEmail(user.getEmail());
         if (existingUser.isPresent()) {
             throw new RuntimeException("Email already registered");
