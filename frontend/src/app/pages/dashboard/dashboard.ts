@@ -13,7 +13,14 @@ export class DashboardComponent implements OnInit {
 
   constructor(private service: ProductService){}
 
-  ngOnInit(){
-  this.products = this.service.getAll(); // no subscribe needed
+ ngOnInit(){
+  this.service.getAll().subscribe({
+    next: (res:any) => {
+      this.products = res;
+    },
+    error: (err) => {
+      console.log(err);
+    }
+  });
 }
 }

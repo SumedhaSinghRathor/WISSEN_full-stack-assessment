@@ -13,18 +13,20 @@ export class AdminManageProductsComponent implements OnInit {
 
   constructor(private service: ProductService){}
 
-  ngOnInit(){
+ ngOnInit(){
+  this.loadProducts();
+}
+
+loadProducts(){
+  this.service.getAll().subscribe((res:any)=>{
+    this.products = res;
+  });
+}
+
+delete(id:number){
+  this.service.delete(id).subscribe(()=>{
+    alert("Deleted ❌");
     this.loadProducts();
-  }
-
-  loadProducts(){
-   this.products= this.service.getAll();
-  }
-
-  delete(id:number){
-    this.service.delete(id).subscribe(()=>{
-      alert("Deleted ❌");
-      this.loadProducts();
-    });
-  }
+  });
+}
 }

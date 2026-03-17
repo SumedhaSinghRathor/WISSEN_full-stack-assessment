@@ -19,9 +19,11 @@ export class AdminAddProductComponent {
   constructor(private service: ProductService){}
 
   addProduct(){
-    this.service.add(this.product).subscribe(()=>{
+  this.service.add(this.product).subscribe({
+    next: () => {
       alert("Product Added ✅");
-      this.product = { name:'', price:0, description:'' };
-    });
-  }
+    },
+    error: (err) => console.log(err)
+  });
+}
 }
