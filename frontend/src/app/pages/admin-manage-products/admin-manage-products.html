@@ -1,24 +1,27 @@
 <div class="page">
-  <div class="card-wrapper">
+    <div class="card-wrapper">
 
-    <h2 class="title">Manage Assets</h2>
+        <h2 class="title">Manage Assets</h2>
+        <div class="header">
+            <h2>Manage Products</h2>
+            <button (click)="goToAdd()">➕ Add Product</button>
+        </div>
+        <div class="grid">
+            <div *ngFor="let p of products" class="card">
 
-    <div class="grid">
-      <div *ngFor="let p of products" class="card">
+                <div class="top">
+                    <h3>{{p.name}}</h3>
+                    <span class="ticker">{{p.ticker}}</span>
+                </div>
 
-        <div class="top">
-          <h3>{{p.name}}</h3>
-          <span class="ticker">{{p.ticker}}</span>
+                <p class="price">₹ {{p.current_price}}</p>
+
+                <button class="delete-btn" (click)="delete(p.asset_id)">
+                    Delete
+                </button>
+
+            </div>
         </div>
 
-        <p class="price">₹ {{p.current_price}}</p>
-
-        <button class="delete-btn" (click)="delete(p.asset_id)">
-          Delete
-        </button>
-
-      </div>
     </div>
-
-  </div>
 </div>

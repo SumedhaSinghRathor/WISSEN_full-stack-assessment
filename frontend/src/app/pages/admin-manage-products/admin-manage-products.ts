@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductService } from '../../services/product';
+import { Router } from '@angular/router';
 
 @Component({
   standalone: true,
@@ -12,7 +13,7 @@ export class AdminManageProductsComponent implements OnInit {
 
   products:any[] = [];
 
-  constructor(private service: ProductService){}
+  constructor(private service: ProductService,private router:Router){}
 
  ngOnInit(){
   this.loadProducts();
@@ -29,5 +30,8 @@ delete(id:number){
     alert("Deleted ❌");
     this.loadProducts();
   });
+}
+goToAdd(){
+  this.router.navigate(['/admin/add-product']);
 }
 }

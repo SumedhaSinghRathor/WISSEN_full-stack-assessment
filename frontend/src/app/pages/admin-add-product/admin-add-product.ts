@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ProductService } from '../../services/product';
+import { Router } from '@angular/router';
 
 @Component({
   standalone: true,
@@ -19,8 +20,10 @@ export class AdminAddProductComponent {
   type: ''
 };
 
-  constructor(private service: ProductService){}
-
+  constructor(private service: ProductService,private router: Router){}
+goBack(){
+  this.router.navigate(['/admin/manage-products']);
+}
   addProduct(){
   this.service.add(this.product).subscribe({
     next: () => {

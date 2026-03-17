@@ -21,7 +21,7 @@
 .card select {
   width: 100%;
   padding: 10px;
-  margin: 8px 0;
+  margin: 8px -5px;
   border-radius: 8px;
   border: 1px solid #ddd;
   outline: none;
@@ -37,4 +37,17 @@
   color: white;
   border-radius: 8px;
   cursor: pointer;
+}
+.back-btn {
+  background: #4CAF50;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.back-btn:hover {
+  background: #45a049;
 }
