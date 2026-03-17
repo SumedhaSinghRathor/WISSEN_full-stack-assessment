@@ -1,0 +1,95 @@
+/* Page background */
+.page {
+  min-height: calc(100vh - 60px);
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  padding: 20px;
+}
+
+/* Wrapper */
+.card-wrapper {
+  max-width: 1000px;
+  margin: auto;
+}
+
+/* Title */
+.title {
+  color: white;
+  margin-bottom: 20px;
+}
+
+/* Grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+/* Card */
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* Top section */
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Ticker */
+.ticker {
+  font-size: 12px;
+  background: #f1f1f1;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+/* Price */
+.price {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+/* Delete button */
+.delete-btn {
+  width: 100%;
+  padding: 8px;
+  border: none;
+  border-radius: 8px;
+  background: #dc3545;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.delete-btn:hover {
+  background: #b02a37;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+button {
+  padding: 8px 15px;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #45a049;
+}

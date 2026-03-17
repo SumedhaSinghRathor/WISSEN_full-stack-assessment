@@ -1,0 +1,53 @@
+.page {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+}
+
+/* Card */
+.card {
+  background: #fff;
+  padding: 30px;
+  width: 350px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  text-align: center;
+}
+
+/* Inputs + select */
+.card input,
+.card select {
+  width: 100%;
+  padding: 10px;
+  margin: 8px -5px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  outline: none;
+}
+
+/* Button */
+.card button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border: none;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.back-btn {
+  background: #4CAF50;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.back-btn:hover {
+  background: #45a049;
+}

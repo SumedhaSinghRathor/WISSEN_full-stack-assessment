@@ -1,0 +1,71 @@
+/* Page title */
+.title {
+  margin: 20px;
+  font-size: 24px;
+  color: #333;
+}
+
+/* Grid layout */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Card */
+.card {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+/* Hover effect */
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+}
+
+/* Top section */
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ticker {
+  font-size: 12px;
+  color: #888;
+  background: #f1f1f1;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+/* Bottom section */
+.bottom {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Price */
+.price {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Trend (green/red) */
+.trend {
+  font-size: 14px;
+  color: #28a745; /* green */
+}
+
+/* Optional: red trend */
+.trend.down {
+  color: #dc3545;
+}
