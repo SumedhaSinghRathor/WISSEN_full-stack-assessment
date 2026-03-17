@@ -9,8 +9,15 @@
     </div>
 
     <div class="bottom">
-      <p class="price">₹ {{p.current_price}}</p>
-      <span class="trend">+2.5%</span> <!-- optional -->
+     <p 
+  class="price"
+  [ngClass]="{
+    'green': p.current_price > p.opening_price,
+    'red': p.current_price < p.opening_price
+  }"
+>
+  ₹ {{p.current_price | number:'1.2-2'}}
+</p>
     </div>
 
   </div>

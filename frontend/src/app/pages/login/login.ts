@@ -23,7 +23,8 @@ export class LoginComponent {
   login(){
     this.auth.login(this.user).subscribe({
       next: (res:any) => {
-
+        console.log(res);
+        
         localStorage.setItem("role", res.role);
 
       if(res.role === "ADMIN"){

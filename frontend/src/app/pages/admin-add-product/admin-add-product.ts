@@ -13,7 +13,6 @@ import { Router } from '@angular/router';
 export class AdminAddProductComponent {
 
  product = {
-  asset_id: 0,
   name: '',
   ticker: '',
   current_price: 0,

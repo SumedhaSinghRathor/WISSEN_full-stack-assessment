@@ -1,5 +1,6 @@
 package trading_portal.backend.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,8 +13,10 @@ public class Product {
     private int asset_id;
     private String ticker;
     private String name;
-    private float current_price;
+    private Double current_price;
     private String type;
+    @Column
+    private Double opening_price;
     
     public int getAsset_id() {
         return asset_id;
@@ -33,10 +36,16 @@ public class Product {
     public void setName(String name) {
         this.name = name;
     }
-    public float getCurrent_price() {
+    public void setOpening_price(Double opening_price){
+        this.opening_price=opening_price;
+    }
+    public Double getOpening_price(){
+        return this.opening_price;
+    }
+    public Double getCurrent_price() {
         return current_price;
     }
-    public void setCurrent_price(float current_price) {
+    public void setCurrent_price(Double current_price) {
         this.current_price = current_price;
     }
     public String getType() {

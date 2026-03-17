@@ -26,7 +26,10 @@ public class UserServiceImpl implements UserService {
         if (existingUser.isPresent()) {
             throw new RuntimeException("Email already registered");
         }
-
+        if(user.getPassword() == null){
+            System.out.println("hellooo");
+    throw new RuntimeException("Password cannot be null");
+}
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         userRepository.save(user);

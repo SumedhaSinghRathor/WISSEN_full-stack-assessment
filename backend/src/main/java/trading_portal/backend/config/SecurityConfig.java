@@ -1,57 +1,50 @@
 package trading_portal.backend.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.web.cors.*;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.userdetails.*;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.core.userdetails.User;
+
+import java.util.List;
 
 @Configuration
 public class SecurityConfig {
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http
-                .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(auth -> auth
+            .csrf(csrf -> csrf.disable())
 
-                        .requestMatchers("/api/auth/**").permitAll()
+            // ✅ ENABLE CORS HERE (IMPORTANT)
+            .cors(cors -> {})
 
-                        .requestMatchers(HttpMethod.GET, "/api/products/**").permitAll()
-
-                        .requestMatchers(HttpMethod.POST, "/api/products/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/api/products/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/api/products/**").hasRole("ADMIN")
-
-                        .anyRequest().authenticated()
-                )
-                .httpBasic(httpBasic -> {}); // enable basic auth for testing
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/api/auth/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/products/**").permitAll()
+                .requestMatchers("/api/products/**").permitAll() // TEMP allow all
+                .anyRequest().permitAll()
+            );
 
         return http.build();
     }
 
-
+    // ✅ GLOBAL CORS CONFIG
     @Bean
-    public UserDetailsService userDetailsService() {
+    public CorsConfigurationSource corsConfigurationSource() {
 
-        UserDetails admin = User.withUsername("admin@gmail.com")
-                .password(passwordEncoder.encode("admin123"))
-                .roles("ADMIN")
-                .build();
+        CorsConfiguration config = new CorsConfiguration();
 
-        UserDetails user = User.withUsername("user@gmail.com")
-                .password(passwordEncoder.encode("user123"))
-                .roles("USER")
-                .build();
+        config.setAllowedOrigins(List.of("http://localhost:4200"));
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedHeaders(List.of("*"));
+        config.setAllowCredentials(true);
 
-        return new InMemoryUserDetailsManager(admin,user);
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config);
+
+        return source;
     }
 }
