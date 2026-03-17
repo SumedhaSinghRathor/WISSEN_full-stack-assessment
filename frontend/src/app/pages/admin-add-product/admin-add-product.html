@@ -1,0 +1,11 @@
+<div class="container">
+  <h2>Add Product</h2>
+
+  <form (ngSubmit)="addProduct()">
+    <input [(ngModel)]="product.name" name="name" placeholder="Product Name" required>
+    <input [(ngModel)]="product.price" name="price" type="number" placeholder="Price" required>
+    <input [(ngModel)]="product.description" name="description" placeholder="Description" required>
+
+    <button type="submit">Add</button>
+  </form>
+</div>

@@ -1,0 +1,11 @@
+<div class="container">
+  <h2>Manage Products</h2>
+
+  <div *ngFor="let p of products" class="card">
+    <h3>{{p.name}}</h3>
+    <p>₹ {{p.current_price}}</p>
+    <p>{{p.ticker}}</p>
+
+    <button (click)="delete(p.id)">Delete</button>
+  </div>
+</div>

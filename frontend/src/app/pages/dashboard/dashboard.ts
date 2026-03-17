@@ -1,20 +1,19 @@
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ProductService } from '../../services/product';
 
 @Component({
-  selector: 'app-dashboard',
-  standalone:true,
+  standalone: true,
   imports: [CommonModule],
-  templateUrl: './dashboard.html',
-  styleUrl: './dashboard.css',
+  templateUrl: './dashboard.html'
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
 
-  constructor(private router: Router){}
+  products:any[] = [];
 
-  logout(){
-    localStorage.clear();
-    this.router.navigate(['/']);
-  }
+  constructor(private service: ProductService){}
+
+  ngOnInit(){
+  this.products = this.service.getAll(); // no subscribe needed
+}
 }

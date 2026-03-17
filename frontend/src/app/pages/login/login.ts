@@ -23,8 +23,14 @@ export class LoginComponent {
   login(){
     this.auth.login(this.user).subscribe({
       next: (res:any) => {
-        alert("Login Success");
+
+        localStorage.setItem("role", res.role);
+
+      if(res.role === "ADMIN"){
+        this.router.navigate(['/admin/manage-products']);
+      } else {
         this.router.navigate(['/dashboard']);
+      }
       },
       error: () => alert("Invalid Credentials")
     });

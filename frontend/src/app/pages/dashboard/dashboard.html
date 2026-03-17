@@ -1,2 +1,12 @@
-<h2>Welcome to Dashboard 🎉</h2>
-<button (click)="logout()">Logout</button>
+<h2>📈 Stocks Dashboard</h2>
+
+<div class="grid">
+  <div *ngFor="let p of products" class="card">
+    
+    <h3>{{p.name}}</h3>
+    <p><b>{{p.ticker}}</b></p>
+    
+    <p class="price">₹ {{p.current_price}}</p>
+
+  </div>
+</div>
