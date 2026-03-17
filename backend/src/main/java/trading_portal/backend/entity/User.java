@@ -22,6 +22,7 @@ public class User {
     private String password;
     private String first_name;
     private String last_name;
+    private Roles role;
     private int age;
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
@@ -41,6 +42,12 @@ public class User {
     }
     public String getPassword() {
         return password;
+    }
+    public Roles getRole() {
+        return role;
+    }
+    public void setRole(Roles role) {
+        this.role = role;
     }
     public void setPassword(String password) {
         this.password = password;
