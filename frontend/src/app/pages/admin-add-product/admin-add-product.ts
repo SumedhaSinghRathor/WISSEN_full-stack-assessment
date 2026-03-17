@@ -6,15 +6,18 @@ import { ProductService } from '../../services/product';
 @Component({
   standalone: true,
   imports: [FormsModule, CommonModule],
-  templateUrl: './admin-add-product.html'
+  templateUrl: './admin-add-product.html',
+  styleUrls:['./admin-add-product.css']
 })
 export class AdminAddProductComponent {
 
-  product = {
-    name: '',
-    price: 0,
-    description: ''
-  };
+ product = {
+  asset_id: 0,
+  name: '',
+  ticker: '',
+  current_price: 0,
+  type: ''
+};
 
   constructor(private service: ProductService){}
 

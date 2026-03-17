@@ -5,7 +5,8 @@ import { ProductService } from '../../services/product';
 @Component({
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './admin-manage-products.html'
+  templateUrl: './admin-manage-products.html',
+  styleUrls:['./admin-manage-products.css']
 })
 export class AdminManageProductsComponent implements OnInit {
 

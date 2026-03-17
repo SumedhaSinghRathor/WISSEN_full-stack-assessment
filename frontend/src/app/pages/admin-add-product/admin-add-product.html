@@ -1,11 +1,26 @@
-<div class="container">
-  <h2>Add Product</h2>
+<div class="page">
+  <div class="card">
+    <h2>Add Asset</h2>
 
-  <form (ngSubmit)="addProduct()">
-    <input [(ngModel)]="product.name" name="name" placeholder="Product Name" required>
-    <input [(ngModel)]="product.price" name="price" type="number" placeholder="Price" required>
-    <input [(ngModel)]="product.description" name="description" placeholder="Description" required>
+    <form (ngSubmit)="addProduct()">
 
-    <button type="submit">Add</button>
-  </form>
+      <input [(ngModel)]="product.asset_id" name="asset_id" type="number" placeholder="Asset ID" required>
+
+      <input [(ngModel)]="product.name" name="name" placeholder="Company Name" required>
+
+      <input [(ngModel)]="product.ticker" name="ticker" placeholder="Ticker (e.g. MSFT)" required>
+
+      <input [(ngModel)]="product.current_price" name="current_price" type="number" placeholder="Current Price" required>
+
+      <select [(ngModel)]="product.type" name="type" required>
+        <option value="">Select Type</option>
+        <option value="STOCK">Stock</option>
+        <option value="CRYPTO">Crypto</option>
+        <option value="FOREX">Forex</option>
+      </select>
+
+      <button type="submit">Add Asset</button>
+
+    </form>
+  </div>
 </div>
