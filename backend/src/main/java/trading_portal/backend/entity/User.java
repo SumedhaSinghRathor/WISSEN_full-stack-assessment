@@ -1,5 +1,9 @@
 package trading_portal.backend.entity;
 
+import java.time.LocalDateTime;
+
+import org.hibernate.annotations.CreationTimestamp;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,6 +23,9 @@ public class User {
     private String first_name;
     private String last_name;
     private int age;
+    @CreationTimestamp
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdDate;
     
     public String getEmail() {
         return email;
