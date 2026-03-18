@@ -14,12 +14,12 @@ import jakarta.persistence.OneToMany;
 public class Portfolio {
     @Id
     @GeneratedValue
-    private Long portfolio_id;
+    private Long id;
 
     private String portfolio_name;
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "user_id")
     private User user;
 
     @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL)
@@ -27,11 +27,11 @@ public class Portfolio {
 
     
     public Long getPortfolio_id() {
-        return portfolio_id;
+        return id;
     }
     
-    public void setPortfolio_id(Long portfolio_id) {
-        this.portfolio_id = portfolio_id;
+    public void setPortfolio_id(Long id) {
+        this.id = id;
     }
 
     public String getPortfolio_name() {

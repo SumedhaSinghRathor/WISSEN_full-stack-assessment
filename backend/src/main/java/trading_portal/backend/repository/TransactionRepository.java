@@ -4,6 +4,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import trading_portal.backend.entity.Transaction;
 
-public interface TransactionRepository extends JpaRepository<Transaction, Integer> {
-    
+import java.util.List;
+
+public interface TransactionRepository extends JpaRepository<Transaction, Long> {
+    List<Transaction> findByPortfolioId(Long portfolioId);
+
+    List<Transaction> findByPortfolioIdAndProductId(Long portfolioId, int productId);
 }

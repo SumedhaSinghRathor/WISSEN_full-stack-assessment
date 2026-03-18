@@ -10,7 +10,8 @@ import jakarta.persistence.Id;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int asset_id;
+    @Column(name = "asset_id")
+    private int id;
     private String ticker;
     private String name;
     private Double current_price;
@@ -19,10 +20,10 @@ public class Product {
     private Double opening_price;
     
     public int getAsset_id() {
-        return asset_id;
+        return id;
     }
     public void setAsset_id(int asset_id) {
-        this.asset_id = asset_id;
+        this.id = asset_id;
     }
     public String getTicker() {
         return ticker;
