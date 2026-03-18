@@ -20,4 +20,13 @@ export class TradeService {
   getTransactions(userId:number) {
     return this.http.get(`${this.baseUrl}/transactions/${userId}`);
   }
+
+  createPortfolio(payload:any) {
+    // return body directly to avoid nested response parsing
+    return this.http.post(`${this.baseUrl}/portfolios`, payload);
+  }
+
+  getPortfolios(userId:number) {
+    return this.http.get(`${this.baseUrl}/portfolios/${userId}`);
+  }
 }

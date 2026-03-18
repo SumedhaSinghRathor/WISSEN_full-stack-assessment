@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -17,10 +17,10 @@ import { AuthStateService } from '../../services/auth-state';
 export class PortfolioComponent implements OnInit, OnDestroy {
   portfolio: any[] = [];
   userId: number = 0;
-  selling: { [key: number]: number } = {};
+  selling: { [key: string]: number } = {};
   tradeSub: Subscription | null = null;
 
-  constructor(private portfolioService: PortfolioService, private tradeService: TradeService, private authState: AuthStateService) {}
+  constructor(private portfolioService: PortfolioService, private tradeService: TradeService, private authState: AuthStateService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
     this.authState.initialize();
@@ -40,24 +40,32 @@ export class PortfolioComponent implements OnInit, OnDestroy {
       next: (res: any) => {
         console.log('Portfolio response', res);
         this.portfolio = res;
+        this.cdr.detectChanges();
       },
       error: (err) => {
         console.error('Portfolio load error', err);
         this.portfolio = [];
+        this.cdr.detectChanges();
       }
     });
   }
 
   sell(position: any) {
-    const qty = this.selling[position.productId] || 0;
+    const key = `${position.productId}-${position.portfolioId}`;
+    const qty = Number(this.selling[key] || 0);
     if (qty <= 0) {
       alert('Enter sell quantity');
       return;
     }
-    this.tradeService.sell({ userId: this.userId, productId: position.productId, quantity: qty }).subscribe({
+    if (qty > position.quantity) {
+      alert('Cannot sell more than you hold.');
+      return;
+    }
+    this.tradeService.sell({ userId: this.userId, productId: position.productId, quantity: qty, portfolioId: position.portfolioId }).subscribe({
       next: () => {
-        this.selling[position.productId] = 0;
+        this.selling[key] = 0;
         this.tradeService.tradeChanged$.next();
+        this.loadPortfolio();
       },
       error: (err) => alert(err?.error || 'Sell failed')
     });

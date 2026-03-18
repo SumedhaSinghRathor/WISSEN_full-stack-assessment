@@ -2,8 +2,17 @@
 
   <!-- HEADER -->
   <div class="header-row">
-    <h2>📈 Stocks Dashboard</h2>
-
+    <div>
+      <h2>📈 Stocks Dashboard</h2>
+      <div style="display:flex; align-items:center; gap:8px; margin-top:6px;">
+        <select [(ngModel)]="selectedPortfolioId" style="padding:6px; min-width:180px; border-radius:6px; border:1px solid #d1d5db;">
+          <option [ngValue]="null">Select portfolio</option>
+          <option *ngFor="let p of portfolios" [ngValue]="p.id">{{p.name}}</option>
+        </select>
+        <input type="text" [(ngModel)]="newPortfolioName" placeholder="New portfolio name" style="padding:6px; border-radius:6px; border:1px solid #d1d5db;" />
+        <button (click)="createPortfolio()" style="background:#0f172a; color:#fff; border:none; border-radius:6px; padding:6px 10px;">Create</button>
+      </div>
+    </div>
     <div class="tabs">
       <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
       <a routerLink="/portfolio" routerLinkActive="active">Portfolio</a>
@@ -49,13 +58,7 @@
 
           <!-- BUY -->
           <div class="buy-row">
-            <input
-              type="number"
-              min="1"
-              [(ngModel)]="buyQuantities[p.asset_id]"
-              placeholder="Qty" />
-
-            <button (click)="buy(p); $event.stopPropagation()">BUY</button>
+            <button (click)="openBuyModal(p); $event.stopPropagation()">BUY</button>
           </div>
 
         </div>
@@ -93,5 +96,35 @@
 
     </div>
 
+  </div>
+
+  <div class="modal-backdrop" *ngIf="showBuyModal">
+    <div class="modal-box">
+      <h3>Buy {{ buyModalStock?.name }}</h3>
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <label>
+          Quantity
+          <input type="number" min="1" [(ngModel)]="buyModalQty" />
+        </label>
+        <label>
+          Portfolio
+          <select [(ngModel)]="buyModalPortfolioId">
+            <option [ngValue]="null">Select portfolio</option>
+            <option *ngFor="let p of portfolios" [ngValue]="p.id">{{ p.name }}</option>
+          </select>
+        </label>
+        <label>
+          Create portfolio
+          <div style="display:flex; gap:8px; align-items:center;">
+            <input type="text" [(ngModel)]="buyModalNewPortfolioName" placeholder="Name" />
+            <button (click)="createPortfolioAndSelect()" type="button">Create</button>
+          </div>
+        </label>
+      </div>
+      <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:12px;">
+        <button (click)="closeBuyModal()" type="button">Cancel</button>
+        <button (click)="confirmBuy()" type="button">Confirm Buy</button>
+      </div>
+    </div>
   </div>
 </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -16,7 +16,7 @@ export class TransactionsComponent implements OnInit, OnDestroy {
   userId: number = 0;
   tradeSub: Subscription | null = null;
 
-  constructor(private tradeService: TradeService) {}
+  constructor(private tradeService: TradeService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
     const userId = localStorage.getItem('userId');
@@ -35,10 +35,12 @@ export class TransactionsComponent implements OnInit, OnDestroy {
       next: (res:any) => {
         console.log('Transactions response', res);
         this.transactions = res;
+        this.cdr.detectChanges();
       },
       error: (err) => {
         console.error('Transactions load error', err);
         this.transactions = [];
+        this.cdr.detectChanges();
       }
     });
   }

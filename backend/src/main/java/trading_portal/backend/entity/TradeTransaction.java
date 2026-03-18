@@ -10,6 +10,8 @@ public class TradeTransaction {
     private Long id;
 
     private int userId;
+    private Long portfolioId;
+    private String portfolioName;
     private int productId;
     private String productName;
     private String ticker;
@@ -23,8 +25,10 @@ public class TradeTransaction {
 
     public TradeTransaction() {}
 
-    public TradeTransaction(int userId, int productId, String productName, String ticker, int quantity, double price, TransactionType type) {
+    public TradeTransaction(int userId, Long portfolioId, String portfolioName, int productId, String productName, String ticker, int quantity, double price, TransactionType type) {
         this.userId = userId;
+        this.portfolioId = portfolioId;
+        this.portfolioName = portfolioName;
         this.productId = productId;
         this.productName = productName;
         this.ticker = ticker;
@@ -39,6 +43,12 @@ public class TradeTransaction {
 
     public int getUserId() { return userId; }
     public void setUserId(int userId) { this.userId = userId; }
+
+    public Long getPortfolioId() { return portfolioId; }
+    public void setPortfolioId(Long portfolioId) { this.portfolioId = portfolioId; }
+
+    public String getPortfolioName() { return portfolioName; }
+    public void setPortfolioName(String portfolioName) { this.portfolioName = portfolioName; }
 
     public int getProductId() { return productId; }
     public void setProductId(int productId) { this.productId = productId; }

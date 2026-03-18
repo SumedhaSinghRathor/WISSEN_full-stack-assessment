@@ -17,8 +17,16 @@ export class DashboardComponent implements OnInit {
   products: any[] = [];
   selectedStock: any = null;
   buyQuantities: { [key:number]: number } = {};
+  portfolios: any[] = [];
+  selectedPortfolioId: number | null = null;
+  newPortfolioName = '';
   priceSeries: number[] = [];
   userId = Number(localStorage.getItem('userId') || 1);
+  showBuyModal = false;
+  buyModalStock: any = null;
+  buyModalQty = 1;
+  buyModalPortfolioId: number | null = null;
+  buyModalNewPortfolioName = '';
 chartData: { labels: string[]; datasets: Array<{ data: number[]; label: string; tension: number; fill: boolean; }> } = {
   labels: [],
   datasets: [
@@ -45,7 +53,40 @@ chartOptions = {
 
   ngOnInit() {
     this.loadData();
+    this.loadPortfolios();
     setInterval(() => this.loadData(), 1000);
+  }
+
+  loadPortfolios() {
+    this.tradeService.getPortfolios(this.userId).subscribe({
+      next: (res:any) => {
+        this.portfolios = res;
+        if (this.portfolios.length > 0 && !this.selectedPortfolioId) {
+          this.selectedPortfolioId = this.portfolios[0].id;
+        }
+      },
+      error: (err) => {
+        console.error('Load portfolios error', err);
+        this.portfolios = [];
+      }
+    });
+  }
+
+  createPortfolio() {
+    const name = this.newPortfolioName?.trim();
+    if (!name) {
+      alert('Enter a portfolio name');
+      return;
+    }
+    this.tradeService.createPortfolio({ userId: this.userId, name }).subscribe({
+      next: () => {
+        this.newPortfolioName = '';
+        this.loadPortfolios();
+      },
+      error: (err) => {
+        alert(err?.error || 'Could not create portfolio');
+      }
+    });
   }
 
   loadData() {
@@ -70,21 +111,78 @@ chartOptions = {
     });
   }
 
-  buy(stock: any) {
-    const qty = Number(this.buyQuantities[stock.asset_id] || 0);
+  openBuyModal(stock: any) {
+    this.buyModalStock = stock;
+    this.buyModalQty = 1;
+    this.buyModalPortfolioId = this.selectedPortfolioId;
+    this.buyModalNewPortfolioName = '';
+    this.showBuyModal = true;
+  }
+
+  closeBuyModal() {
+    this.showBuyModal = false;
+    this.buyModalStock = null;
+  }
+
+  private getErrorMessage(err: any, fallback: string) {
+    if (!err) return fallback;
+    if (typeof err === 'string') return err;
+    if (err?.error) {
+      if (typeof err.error === 'string') return err.error;
+      if (err.error?.message) return err.error.message;
+      if (typeof err.error === 'object') return JSON.stringify(err.error);
+    }
+    if (err.message) return err.message;
+    return fallback;
+  }
+
+  createPortfolioAndSelect() {
+    const name = (this.buyModalNewPortfolioName || '').trim();
+    if (!name) {
+      alert('Enter a portfolio name');
+      return;
+    }
+    this.tradeService.createPortfolio({ userId: this.userId, name }).subscribe({
+      next: (created:any) => {
+        const createdId = created?.id || created?.portfolioId;
+        this.loadPortfolios();
+        if (createdId) {
+          this.buyModalPortfolioId = createdId;
+          this.selectedPortfolioId = createdId;
+        }
+        this.buyModalNewPortfolioName = '';
+      },
+      error: (err) => alert(this.getErrorMessage(err, 'Could not create portfolio'))
+    });
+  }
+
+  confirmBuy() {
+    if (!this.buyModalStock) {
+      return;
+    }
+    const qty = Number(this.buyModalQty || 0);
     if (qty <= 0) {
       alert('Enter a positive quantity');
       return;
     }
-    this.tradeService.buy({ userId: this.userId, productId: stock.asset_id, quantity: qty }).subscribe({
+    const portfolioId = this.buyModalPortfolioId || this.selectedPortfolioId;
+    if (!portfolioId) {
+      alert('Select or create a portfolio before buying');
+      return;
+    }
+    this.tradeService.buy({ userId: this.userId, productId: this.buyModalStock.asset_id, quantity: qty, portfolioId: portfolioId }).subscribe({
       next: () => {
         alert('Bought successfully');
-        this.buyQuantities[stock.asset_id] = 0;
+        this.buyQuantities[this.buyModalStock.asset_id] = 0;
+        this.selectedPortfolioId = portfolioId;
+        this.loadPortfolios();
         this.tradeService.tradeChanged$.next();
+        this.closeBuyModal();
       },
-      error: (err) => alert(err?.error || 'Buy failed')
+      error: (err) => alert(this.getErrorMessage(err, 'Buy failed'))
     });
   }
+
 addChartPoint(price: number) {
 
   const newPrice = Math.round(price * 100) / 100;

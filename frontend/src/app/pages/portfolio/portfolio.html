@@ -11,13 +11,14 @@
   <div *ngFor="let p of portfolio" class="position-card">
     <div class="position-head"><div>{{p.productName}} ({{p.ticker}})</div><div>Qty: {{p.quantity}}</div></div>
     <div class="position-grid">
+      <div>Portfolio: {{p.portfolioName || 'Default'}}</div>
       <div>Avg Buy: ₹{{p.averageBuyPrice | number:'1.2-2'}}</div>
       <div>Current: ₹{{p.currentPrice | number:'1.2-2'}}</div>
       <div>Value: ₹{{p.value | number:'1.2-2'}}</div>
       <div [class.green]="p.profitLoss >= 0" [class.red]="p.profitLoss < 0">P/L: ₹{{p.profitLoss | number:'1.2-2'}}</div>
     </div>
     <div class="sell-row">
-      <input type="number" min="1" [(ngModel)]="selling[p.productId]" placeholder="Sell qty" />
+      <input type="number" min="1" [(ngModel)]="selling[p.productId + '-' + p.portfolioId]" placeholder="Sell qty" />
       <button (click)="sell(p)">SELL</button>
     </div>
   </div>

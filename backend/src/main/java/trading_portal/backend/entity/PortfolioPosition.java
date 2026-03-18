@@ -9,6 +9,8 @@ public class PortfolioPosition {
     private Long id;
 
     private int userId;
+    private Long portfolioId;
+    private String portfolioName;
     private int productId;
     private String productName;
     private String ticker;
@@ -22,6 +24,12 @@ public class PortfolioPosition {
 
     public int getUserId() { return userId; }
     public void setUserId(int userId) { this.userId = userId; }
+
+    public Long getPortfolioId() { return portfolioId; }
+    public void setPortfolioId(Long portfolioId) { this.portfolioId = portfolioId; }
+
+    public String getPortfolioName() { return portfolioName; }
+    public void setPortfolioName(String portfolioName) { this.portfolioName = portfolioName; }
 
     public int getProductId() { return productId; }
     public void setProductId(int productId) { this.productId = productId; }
