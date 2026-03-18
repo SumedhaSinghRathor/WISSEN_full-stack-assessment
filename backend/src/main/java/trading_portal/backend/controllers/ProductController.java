@@ -27,7 +27,7 @@ public class ProductController {
 
     @PostMapping("")
     public Product createProduct(@RequestBody Product product) {
-        return service.create(product); // 🔥 IMPORTANT
+        return service.create(product);
     }
 
     @PutMapping("/{id}")

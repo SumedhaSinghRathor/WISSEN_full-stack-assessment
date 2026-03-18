@@ -4,13 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import trading_portal.backend.entity.User;
-import trading_portal.backend.repository.UserRepository;
 import trading_portal.backend.services.UserService;
 
-import java.util.List;
-
-//@RestController
-//@RequestMapping("/")
 @RestController
 @RequestMapping("/api/auth")
 @CrossOrigin(origins = "http://localhost:4200")

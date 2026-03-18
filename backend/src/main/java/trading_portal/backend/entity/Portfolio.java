@@ -23,12 +23,13 @@ public class Portfolio {
     private User user;
 
     @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL)
-    private List<Holding> holdings;
+    private List<Transaction> transactions;
 
+    
     public Long getPortfolio_id() {
         return portfolio_id;
     }
-
+    
     public void setPortfolio_id(Long portfolio_id) {
         this.portfolio_id = portfolio_id;
     }
@@ -40,7 +41,7 @@ public class Portfolio {
     public void setPortfolio_name(String portfolio_name) {
         this.portfolio_name = portfolio_name;
     }
-
+    
     public User getUser() {
         return user;
     }
@@ -48,12 +49,12 @@ public class Portfolio {
     public void setUser(User user) {
         this.user = user;
     }
-
-    public List<Holding> getHoldings() {
-        return holdings;
+    
+    public List<Transaction> getTransactions() {
+        return transactions;
     }
-
-    public void setHoldings(List<Holding> holdings) {
-        this.holdings = holdings;
+    
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions = transactions;
     }
 }
