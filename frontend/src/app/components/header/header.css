@@ -5,6 +5,20 @@
   background: #1e293b;
   color: white;
   padding: 15px 30px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 
 .logo {
@@ -12,13 +26,26 @@
   font-weight: bold;
 }
 
-.links a {
-  margin-left: 20px;
-  text-decoration: none;
-  color: white;
-  font-size: 14px;
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.95rem;
 }
 
-.links a:hover {
-  color: #38bdf8;
+.user-name {
+  font-weight: 600;
+}
+
+.logout {
+  border: none;
+  background: #ef4444;
+  color: #fff;
+  border-radius: 4px;
+  padding: 4px 10px;
+  cursor: pointer;
+}
+
+.logout:hover {
+  background: #dc2626;
 }

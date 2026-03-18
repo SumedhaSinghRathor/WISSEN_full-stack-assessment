@@ -3,12 +3,13 @@ import { AuthService } from '../../services/auth';
 import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { AuthStateService } from '../../services/auth-state';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.html',
   standalone: true,
-  imports: [FormsModule, CommonModule,RouterModule],
+  imports: [FormsModule, CommonModule, RouterModule],
   styleUrls: ['./login.css']
 })
 export class LoginComponent {
@@ -18,22 +19,26 @@ export class LoginComponent {
     password: ''
   };
 
-  constructor(private auth: AuthService, private router: Router){}
+  constructor(private auth: AuthService, private router: Router, private authState: AuthStateService) {}
 
   login(){
     this.auth.login(this.user).subscribe({
       next: (res:any) => {
-        console.log(res);
-        
-        localStorage.setItem("role", res.role);
+        if (!res?.token) {
+          alert('Invalid credentials');
+          return;
+        }
 
-      if(res.role === "ADMIN"){
-        this.router.navigate(['/admin/manage-products']);
-      } else {
-        this.router.navigate(['/dashboard']);
-      }
+        const nameValue = `${res.firstName || ''} ${res.lastName || ''}`.trim() || res.email || 'User';
+        this.authState.setUser(res.token, res.role, nameValue, res.email || '');
+
+        if (res.role === 'ADMIN') {
+          this.router.navigate(['/admin/manage-products']);
+        } else {
+          this.router.navigate(['/dashboard']);
+        }
       },
-      error: () => alert("Invalid Credentials")
+      error: () => alert('Invalid Credentials')
     });
   }
 }

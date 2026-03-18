@@ -4,9 +4,10 @@ import { Header } from './components/header/header';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet,Header],
+  standalone: true,
+  imports: [RouterOutlet, Header],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrls: ['./app.css']
 })
 export class App {
   protected readonly title = signal('frontend');

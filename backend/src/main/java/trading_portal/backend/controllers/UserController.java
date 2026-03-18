@@ -3,11 +3,10 @@ package trading_portal.backend.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import trading_portal.backend.dto.LoginRequest;
+import trading_portal.backend.dto.LoginResponse;
 import trading_portal.backend.entity.User;
-import trading_portal.backend.repository.UserRepository;
 import trading_portal.backend.services.UserService;
-
-import java.util.List;
 
 //@RestController
 //@RequestMapping("/")
@@ -27,7 +26,7 @@ public class UserController {
 
     // LOGIN
     @PostMapping("/login")
-    public User login(@RequestBody User user) {
-        return userService.loginUser(user.getEmail(), user.getPassword());
+    public LoginResponse login(@RequestBody LoginRequest loginRequest) {
+        return userService.loginUser(loginRequest.getEmail(), loginRequest.getPassword());
     }
 }

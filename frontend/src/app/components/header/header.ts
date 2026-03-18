@@ -1,12 +1,35 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
+import { AuthStateService } from '../../services/auth-state';
 
 @Component({
   selector: 'app-header',
-  imports: [CommonModule,FormsModule,RouterModule],
+  standalone: true,
+  imports: [CommonModule, RouterModule],
   templateUrl: './header.html',
-  styleUrl: './header.css',
+  styleUrls: ['./header.css'],
 })
-export class Header {}
+export class Header implements OnInit {
+  name = '';
+  role = '';
+  email = '';
+
+  constructor(private router: Router, private authState: AuthStateService) {}
+
+  ngOnInit() {
+    this.authState.initialize();
+    this.authState.user$.subscribe((user) => {
+      this.name = user.name || (user.email ? user.email : '');
+      this.role = user.role || '';
+      this.email = user.email || '';
+    });
+  }
+
+  logout() {
+    this.authState.clearUser();
+    this.router.navigate(['/']);
+  }
+}
+
+
