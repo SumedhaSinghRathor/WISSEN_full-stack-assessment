@@ -1,23 +1,96 @@
-<h2 class="title">📈 Stocks Dashboard</h2>
+<div class="dashboard-page">
 
-<div class="grid">
-  <div *ngFor="let p of products" class="card">
+  <!-- HEADER -->
+  <div class="header-row">
+    <h2>📈 Stocks Dashboard</h2>
 
-    <div class="top">
-      <h3>{{p.name}}</h3>
-      <span class="ticker">{{p.ticker}}</span>
+    <div class="tabs">
+      <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+      <a routerLink="/portfolio" routerLinkActive="active">Portfolio</a>
+      <a routerLink="/transactions" routerLinkActive="active">Transactions</a>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="container">
+
+    <!-- LEFT SIDE (ALL STOCKS) -->
+    <div class="left-panel">
+
+      <div class="grid">
+
+        <div
+          *ngFor="let p of products"
+          class="card"
+          [class.active]="selectedStock?.asset_id === p.asset_id"
+          (click)="selectStock(p)">
+
+          <!-- TOP -->
+          <div class="top">
+            <h3>{{p.name}}</h3>
+            <span class="ticker">{{p.ticker}}</span>
+          </div>
+
+          <!-- PRICE -->
+          <div class="price-row">
+            <span class="price"
+              [ngClass]="{
+                'green': p.current_price > p.opening_price,
+                'red': p.current_price < p.opening_price
+              }">
+              ₹ {{p.current_price | number:'1.2-2'}}
+            </span>
+
+            <span class="trend">
+              {{p.current_price >= p.opening_price ? '+' : '-'}}
+              {{((p.current_price - p.opening_price)/p.opening_price*100) | number:'1.2-2'}}%
+            </span>
+          </div>
+
+          <!-- BUY -->
+          <div class="buy-row">
+            <input
+              type="number"
+              min="1"
+              [(ngModel)]="buyQuantities[p.asset_id]"
+              placeholder="Qty" />
+
+            <button (click)="buy(p); $event.stopPropagation()">BUY</button>
+          </div>
+
+        </div>
+
+      </div>
     </div>
 
-    <div class="bottom">
-     <p 
-  class="price"
-  [ngClass]="{
-    'green': p.current_price > p.opening_price,
-    'red': p.current_price < p.opening_price
-  }"
->
-  ₹ {{p.current_price | number:'1.2-2'}}
-</p>
+    <!-- RIGHT SIDE (CHART ONLY WHEN SELECTED) -->
+    <div class="right-panel" *ngIf="selectedStock">
+
+      <div class="stock-summary">
+        <h3>{{selectedStock.name}}</h3>
+        <p class="ticker-big">{{selectedStock.ticker}}</p>
+
+        <div class="price-big">
+          ₹ {{selectedStock.current_price | number:'1.2-2'}}
+        </div>
+
+        <div class="open-price">
+          Open: ₹{{selectedStock.opening_price | number:'1.2-2'}}
+        </div>
+      </div>
+
+      <!-- CHART -->
+      <div class="chart-card">
+        <canvas
+          baseChart
+          [datasets]="chartData.datasets"
+          [labels]="chartData.labels"
+          [options]="chartOptions"
+          [legend]="false"
+          [type]="'line'">
+        </canvas>
+      </div>
+
     </div>
 
   </div>

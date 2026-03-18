@@ -24,7 +24,20 @@
 .logo {
   font-size: 20px;
   font-weight: bold;
+  margin-right: 20px;
 }
+
+.navbar-left a {
+  color: #fff;
+  margin-right: 10px;
+  text-decoration: none;
+  border: 1px solid #fff2;
+  border-radius: 4px;
+  padding: 5px 8px;
+  font-size: 0.9rem;
+}
+
+.navbar-left a:hover { background: #fff1; }
 
 .header-right {
   display: flex;

@@ -31,6 +31,7 @@ export class LoginComponent {
 
         const nameValue = `${res.firstName || ''} ${res.lastName || ''}`.trim() || res.email || 'User';
         this.authState.setUser(res.token, res.role, nameValue, res.email || '');
+        localStorage.setItem('userId', res.userId || '1');
 
         if (res.role === 'ADMIN') {
           this.router.navigate(['/admin/manage-products']);

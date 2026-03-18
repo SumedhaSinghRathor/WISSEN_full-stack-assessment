@@ -1,0 +1,15 @@
+.page { padding: 20px; max-width: 900px; margin: 0 auto; }
+.header-row { display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:10px; }
+.tabs { display:flex; gap:8px; }
+.tabs a { text-decoration:none; color:#1f2a3d; background:#fff; border:1px solid #cbd5e1; border-radius:8px; font-weight:600; padding:7px 12px; }
+.tabs a.active { background:#2563eb; color:#fff; border-color:#2563eb; }
+.position-card { background: #fff; border-radius: 10px; box-shadow: 0 4px 18px rgba(0,0,0,0.06); margin-bottom: 12px; padding: 14px; }
+.position-head { display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 8px; }
+.position-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px,1fr)); gap: 10px; margin-bottom: 10px; }
+.sell-row { display: flex; gap: 8px; margin-top: 8px; }
+.sell-row input { padding: 7px; width: 100px; border-radius: 6px; border: 1px solid #d1d5db; }
+.sell-row button { background: #d9534f; color: white; border: none; padding: 7px 12px; border-radius: 6px; cursor: pointer; }
+.green { color: #16a34a; font-weight: 700; }
+.red { color: #dc2626; font-weight: 700; }
+.empty { margin-top: 20px; color: #475569; font-weight: 600; }
+

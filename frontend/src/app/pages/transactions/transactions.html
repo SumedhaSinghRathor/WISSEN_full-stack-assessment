@@ -1,0 +1,23 @@
+<div class="page">
+  <div class="header-row" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
+    <div><h2>🧾 Transactions</h2></div>
+    <div class="tabs" style="display:flex; gap:8px;">
+      <a routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" style="padding:6px 10px; border-radius:6px; background:#1d4ed8; color:#fff; text-decoration:none; font-weight:600;">Dashboard</a>
+      <a routerLink="/portfolio" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" style="padding:6px 10px; border-radius:6px; background:#0f172a; color:#fff; text-decoration:none; font-weight:600;">Portfolio</a>
+      <a routerLink="/transactions" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" style="padding:6px 10px; border-radius:6px; background:#0f172a; color:#fff; text-decoration:none; font-weight:600;">Transactions</a>
+    </div>
+  </div>
+  <div *ngIf="transactions.length === 0" class="empty">No transactions yet.</div>
+  <table *ngIf="transactions.length > 0" class="transactions-table">
+    <thead><tr><th>Time</th><th>Stock</th><th>Type</th><th>Qty</th><th>Price</th></tr></thead>
+    <tbody>
+      <tr *ngFor="let t of transactions">
+        <td>{{t.timestamp | date:'short'}}</td>
+        <td>{{t.productName}} ({{t.ticker}})</td>
+        <td [class.buy]="t.type==='BUY'" [class.sell]="t.type==='SELL'">{{t.type}}</td>
+        <td>{{t.quantity}}</td>
+        <td>₹ {{t.price | number:'1.2-2'}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

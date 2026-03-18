@@ -57,6 +57,7 @@ public class UserServiceImpl implements UserService {
                 user.getRole() != null ? user.getRole().name() : Roles.USER.name(),
                 user.getFirstName(),
                 user.getLastName(),
-                user.getEmail());
+                user.getEmail(),
+                user.getId());
     }
 }
