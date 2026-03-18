@@ -12,6 +12,7 @@ public interface TradingService {
     TradeTransaction sell(TradeRequest request);
     List<TradeTransaction> getTransactionsForUser(int userId);
     List<PortfolioResponse> getPortfolioForUser(int userId);
+    List<PortfolioResponse> getPortfolioDetails(int userId, Long portfolioId);
     Portfolio createPortfolio(int userId, String name);
     List<Portfolio> getPortfoliosForUser(int userId);
 }

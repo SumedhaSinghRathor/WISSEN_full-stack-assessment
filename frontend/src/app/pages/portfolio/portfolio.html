@@ -2,12 +2,51 @@
   <div class="header-row" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
     <div><h2>📦 Portfolio</h2></div>
     <div class="tabs" style="display:flex; gap:8px;">
-      <a routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" style="padding:6px 10px; border-radius:6px; background:#1d4ed8; color:#fff; text-decoration:none; font-weight:600;">Dashboard</a>
-      <a routerLink="/portfolio" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" style="padding:6px 10px; border-radius:6px; background:#0f172a; color:#fff; text-decoration:none; font-weight:600;">Portfolio</a>
-      <a routerLink="/transactions" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" style="padding:6px 10px; border-radius:6px; background:#0f172a; color:#fff; text-decoration:none; font-weight:600;">Transactions</a>
+      <a routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Dashboard</a>
+      <a routerLink="/portfolio" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Portfolio</a>
+      <a routerLink="/transactions" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Transactions</a>
     </div>
   </div>
+
   <div *ngIf="portfolio.length === 0" class="empty">No holdings yet.</div>
+
+  <div *ngIf="portfoliosSummary.length > 0" class="summary-row">
+    <div *ngFor="let summary of portfoliosSummary" class="summary-card" [class.selected]="summary.portfolioId === selectedPortfolioId" (click)="loadPortfolioDetails(summary.portfolioId, summary.portfolioName)">
+      <div class="summary-title">{{summary.portfolioName}}</div>
+      <div>Total Value: ₹{{summary.value | number:'1.2-2'}}</div>
+      <div [class.green]="summary.profitLoss >= 0" [class.red]="summary.profitLoss < 0">P/L: ₹{{summary.profitLoss | number:'1.2-2'}}</div>
+      <div>{{summary.count}} holdings</div>
+      <button class="detail-btn">View details</button>
+    </div>
+  </div>
+
+  <div *ngIf="selectedPortfolioPositions.length > 0" class="details-card">
+    <div class="detail-head">
+      <div><h3>{{selectedPortfolioName}} Details</h3></div>
+      <div>
+        <div>Total Value: ₹{{selectedPortfolioTotal | number:'1.2-2'}}</div>
+        <div [class.green]="selectedPortfolioProfitLoss >= 0" [class.red]="selectedPortfolioProfitLoss < 0">Portfolio P/L: ₹{{selectedPortfolioProfitLoss | number:'1.2-2'}}</div>
+      </div>
+    </div>
+    <div class="graph-row">
+      <div *ngFor="let p of selectedPortfolioPositions" class="graph-item">
+        <div class="graph-line"><span class="ticker">{{p.ticker}}</span><span class="value">₹{{p.value | number:'1.2-2'}}</span></div>
+        <div class="graph-bg"><div class="graph-bar" [style.width.%]="getGraphWidth(p.value)"></div></div>
+      </div>
+    </div>
+    <div class="positions-grid">
+      <div *ngFor="let p of selectedPortfolioPositions" class="position-card small">
+        <div class="position-head"><div>{{p.productName}} ({{p.ticker}})</div><div>Qty: {{p.quantity}}</div></div>
+        <div class="position-grid">
+          <div>Avg Buy: ₹{{p.averageBuyPrice | number:'1.2-2'}}</div>
+          <div>Current: ₹{{p.currentPrice | number:'1.2-2'}}</div>
+          <div>Value: ₹{{p.value | number:'1.2-2'}}</div>
+          <div [class.green]="p.profitLoss >= 0" [class.red]="p.profitLoss < 0">P/L: ₹{{p.profitLoss | number:'1.2-2'}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div *ngFor="let p of portfolio" class="position-card">
     <div class="position-head"><div>{{p.productName}} ({{p.ticker}})</div><div>Qty: {{p.quantity}}</div></div>
     <div class="position-grid">

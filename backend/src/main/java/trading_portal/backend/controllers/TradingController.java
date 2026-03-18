@@ -54,5 +54,10 @@ public class TradingController {
     public List<PortfolioResponse> getPortfolio(@PathVariable int userId) {
         return tradingService.getPortfolioForUser(userId);
     }
+
+    @GetMapping("/portfolio/{userId}/{portfolioId}")
+    public List<PortfolioResponse> getPortfolioDetails(@PathVariable int userId, @PathVariable Long portfolioId) {
+        return tradingService.getPortfolioDetails(userId, portfolioId);
+    }
 }
 

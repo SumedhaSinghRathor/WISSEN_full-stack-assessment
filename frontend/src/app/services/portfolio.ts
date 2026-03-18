@@ -10,4 +10,8 @@ export class PortfolioService {
   getPortfolio(userId:number) {
     return this.http.get(`${this.baseUrl}/portfolio/${userId}`);
   }
+
+  getPortfolioDetails(userId:number, portfolioId:number) {
+    return this.http.get(`${this.baseUrl}/portfolio/${userId}/${portfolioId}`);
+  }
 }

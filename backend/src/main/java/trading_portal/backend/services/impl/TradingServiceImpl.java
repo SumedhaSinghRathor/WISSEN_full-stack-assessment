@@ -132,6 +132,35 @@ public class TradingServiceImpl implements TradingService {
     }
 
     @Override
+    public List<PortfolioResponse> getPortfolioDetails(int userId, Long portfolioId) {
+        Portfolio portfolio = portfolioMetaRepo.findById(portfolioId)
+                .orElseThrow(() -> new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.NOT_FOUND, "Portfolio not found"));
+        if (portfolio.getUserId() != userId) {
+            throw new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.BAD_REQUEST, "Portfolio does not belong to user");
+        }
+
+        List<PortfolioPosition> positions = portfolioRepo.findByUserIdAndPortfolioId(userId, portfolioId);
+        List<PortfolioResponse> responses = new ArrayList<>();
+        for (PortfolioPosition p : positions) {
+            Product product = productRepo.findById(p.getProductId()).orElse(null);
+            if (product == null) continue;
+            PortfolioResponse r = new PortfolioResponse();
+            r.setPortfolioId(p.getPortfolioId());
+            r.setPortfolioName(p.getPortfolioName());
+            r.setProductId(p.getProductId());
+            r.setProductName(p.getProductName());
+            r.setTicker(p.getTicker());
+            r.setQuantity(p.getQuantity());
+            r.setAverageBuyPrice(p.getAverageBuyPrice());
+            r.setCurrentPrice(product.getCurrent_price());
+            r.setValue(product.getCurrent_price() * p.getQuantity());
+            r.setProfitLoss((product.getCurrent_price() - p.getAverageBuyPrice()) * p.getQuantity());
+            responses.add(r);
+        }
+        return responses;
+    }
+
+    @Override
     public Portfolio createPortfolio(int userId, String name) {
         if (name == null || name.trim().isEmpty()) {
             throw new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.BAD_REQUEST, "Portfolio name cannot be empty");
