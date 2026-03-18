@@ -1,26 +1,31 @@
 <div class="page">
-    <div class="card-wrapper">
-
-        <div class="header">
-            <h2>Manage Products</h2>
-            <button (click)="goToAdd()">➕ Add Product</button>
-        </div>
-        <div class="grid">
-            <div *ngFor="let p of products" class="card">
-
-                <div class="top">
-                    <h3>{{p.name}}</h3>
-                    <span class="ticker">{{p.ticker}}</span>
-                </div>
-
-               <p class="price">₹ {{p.current_price | number:'1.2-2'}}</p>
-                <button class="edit-btn" (click)="edit(p)">✏ Edit</button>
-                <button class="delete-btn" (click)="delete(p.asset_id)">
-                    Delete
-                </button>
-
-            </div>
-        </div>
-
+  <div class="card-wrapper">
+    <div class="header">
+      <div>
+        <p class="eyebrow">ADMIN</p>
+        <h2>Manage Products</h2>
+        <p class="subtitle">Add, edit, or remove trading products from your portal.</p>
+      </div>
+      <button class="primary-btn" (click)="goToAdd()">➕ Add Product</button>
     </div>
+
+    <div class="grid">
+      <div *ngFor="let p of products" class="card">
+        <div class="card-top">
+          <div>
+            <h3>{{ p.name }}</h3>
+            <p class="ticker">{{ p.ticker }}</p>
+          </div>
+          <span class="pill">{{ p.category || 'Equity' }}</span>
+        </div>
+
+        <p class="price">₹ {{ p.current_price | number:'1.2-2' }}</p>
+
+        <div class="actions">
+          <button class="edit-btn" (click)="edit(p)">✏ Edit</button>
+          <button class="delete-btn" (click)="delete(p.asset_id)">🗑 Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

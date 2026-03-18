@@ -1,27 +1,18 @@
-<div class="page">
-    <div class="card">
-      <button class="back-btn" (click)="goBack()">⬅ Back</button>
-    <h2>Add Asset</h2>
+<div class="page auth-page">
+  <div class="auth-card">
+    <button class="back-btn" (click)="goBack()">⬅ Back</button>
+    <div class="auth-header">
+      <p class="eyebrow">Admin Action</p>
+      <h2>Add New Asset</h2>
+      <p class="subtitle">Add a new market asset for users to trade.</p>
+    </div>
 
-    <form (ngSubmit)="addProduct()">
-
-      
-
-      <input [(ngModel)]="product.name" name="name" placeholder="Company Name" required>
-
-      <input [(ngModel)]="product.ticker" name="ticker" placeholder="Ticker (e.g. MSFT)" required>
-
-      <input [(ngModel)]="product.current_price" name="current_price" type="number" placeholder="Current Price" required>
-
-      <select [(ngModel)]="product.type" name="type" required>
-        <option value="">Select Type</option>
-        <option value="STOCK">Stock</option>
-        <option value="CRYPTO">Crypto</option>
-        <option value="FOREX">Forex</option>
-      </select>
-
-      <button type="submit">Add Asset</button>
-
+    <form (ngSubmit)="addProduct()" class="auth-form">
+      <div class="form-group"><label>Company Name</label><input [(ngModel)]="product.name" name="name" placeholder="Company Name" required></div>
+      <div class="form-group"><label>Ticker</label><input [(ngModel)]="product.ticker" name="ticker" placeholder="Ticker (e.g. MSFT)" required></div>
+      <div class="form-group"><label>Current Price</label><input [(ngModel)]="product.current_price" name="current_price" type="number" placeholder="Current Price" required></div>
+      <div class="form-group"><label>Type</label><select [(ngModel)]="product.type" name="type" required><option value="">Select Type</option><option value="STOCK">Stock</option><option value="CRYPTO">Crypto</option><option value="FOREX">Forex</option></select></div>
+      <button class="primary-btn" type="submit">Add Asset</button>
     </form>
   </div>
 </div>

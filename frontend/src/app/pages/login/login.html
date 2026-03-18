@@ -1,17 +1,17 @@
-<div class="page">
-  <div class="card">
-    <h2>Login</h2>
+<div class="page auth-page">
+  <div class="auth-card">
+    <div class="auth-header">
+      <p class="eyebrow">Welcome Back</p>
+      <h2>Login to Your Account</h2>
+      <p class="subtitle">Access your trading portal dashboard and manage your assets.</p>
+    </div>
 
-    <form (ngSubmit)="login()">
-
-      <input type="email" [(ngModel)]="user.email" name="email" placeholder="Email" required>
-
-      <input type="password" [(ngModel)]="user.password" name="password" placeholder="Password" required>
-
-      <button type="submit">Login</button>
-
+    <form (ngSubmit)="login()" class="auth-form">
+      <div class="form-group"><label>Email</label><input type="email" [(ngModel)]="user.email" name="email" placeholder="name@example.com" required></div>
+      <div class="form-group"><label>Password</label><input type="password" [(ngModel)]="user.password" name="password" placeholder="••••••••" required></div>
+      <button class="primary-btn" type="submit">Login</button>
     </form>
 
-    <p>Don't have account? <a routerLink="/register">Register</a></p>
+    <p class="footer">No account yet? <a routerLink="/register">Register now</a></p>
   </div>
 </div>

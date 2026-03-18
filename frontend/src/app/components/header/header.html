@@ -1,12 +1,16 @@
 <nav class="navbar">
   <div class="navbar-left">
-    <div class="logo">BullRun🐂</div>
+    <div class="logo">BullRun 🐂</div>
   </div>
   <div class="navbar-right">
     <div class="header-right">
-      <span *ngIf="name" class="user-name">Welcome, {{ name }}</span>
-      <span *ngIf="role" class="user-role">({{ role }})</span>
-      <button *ngIf="name" class="logout" (click)="logout()">Logout</button>
+      <ng-container *ngIf="name">
+        <div class="user-chip">
+          <span class="user-name">{{ name }}</span>
+          <span *ngIf="role" class="user-role">{{ role.toUpperCase() }}</span>
+        </div>
+        <button class="logout" (click)="logout()">Logout</button>
+      </ng-container>
     </div>
   </div>
 </nav>

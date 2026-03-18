@@ -1,53 +1,53 @@
-.page {
-  height: 100vh;
+.auth-page {
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  background: linear-gradient(135deg, #1d2d6f, #44519f);
+  padding: 12px;
 }
 
-/* Card */
-.card {
-  background: #fff;
-  padding: 30px;
-  width: 350px;
-  border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-  text-align: center;
+.auth-card {
+  width: min(480px, 100%);
+  background: rgba(255,255,255,0.98);
+  border-radius: 16px;
+  padding: 22px;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.26);
+  border: 1px solid rgba(255,255,255,0.2);
 }
 
-/* Inputs + select */
-.card input,
-.card select {
-  width: 100%;
-  padding: 10px;
-  margin: 8px -5px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  outline: none;
-}
-
-/* Button */
-.card button {
-  width: 100%;
-  padding: 10px;
-  margin-top: 10px;
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  border: none;
-  color: white;
-  border-radius: 8px;
-  cursor: pointer;
-}
 .back-btn {
-  background: #4CAF50;
-  color: white;
+  background: #1f2937;
+  color: #fff;
   border: none;
-  padding: 8px 15px;
-  border-radius: 5px;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-weight: 600;
   cursor: pointer;
   margin-bottom: 10px;
 }
 
 .back-btn:hover {
-  background: #45a049;
+  background: #111827;
 }
+
+.auth-header .eyebrow {
+  margin: 0;
+  font-size: 11px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: #5c65b8;
+  font-weight: 700;
+}
+
+.auth-header h2 { margin: 8px 0 4px; font-size: 24px; color: #1f2a47; }
+.auth-header .subtitle { margin: 0; color: #5f6787; font-size: 13px; }
+
+.auth-form { display: grid; gap: 10px; margin-top: 12px; }
+.form-group { display: flex; flex-direction: column; gap: 4px; }
+.form-group label { font-size: 12px; color: #4b4f66; font-weight: 600; }
+.auth-form input,
+.auth-form select { border-radius: 10px; border: 1px solid #ced4e1; padding: 10px 12px; font-size: 14px; }
+
+.primary-btn { border: none; border-radius: 10px; padding: 11px; background: linear-gradient(120deg, #3b82f6, #2563eb); color: white; font-weight: 700; cursor: pointer; transition: transform .15s ease; }
+.primary-btn:hover { transform: translateY(-1px); }

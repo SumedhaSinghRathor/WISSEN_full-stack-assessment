@@ -1,152 +1,190 @@
 /* ================= PAGE ================= */
 .page {
   min-height: calc(100vh - 60px);
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  padding: 30px;
+  background: linear-gradient(135deg, #1f233d 0%, #2d3c6d 45%, #4f5ca8 100%);
+  padding: 24px;
   font-family: 'Segoe UI', sans-serif;
+  color: #1e1e2f;
 }
 
 /* ================= WRAPPER ================= */
 .card-wrapper {
-  max-width: 1200px;   /* 🔥 slightly wider */
-  margin: auto;
+  max-width: 1100px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, .12);
+  border-radius: 20px;
+  padding: 18px;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 6px 36px rgba(0, 0, 0, 0.3);
 }
 
 /* ================= HEADER ================= */
 .header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 25px;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  gap: 12px;
 }
 
-.title {
+.eyebrow {
+  margin: 0;
+  font-size: 11px;
+  letter-spacing: 1.6px;
+  color: #d8def0;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.header h2 {
+  margin: 6px 0 0;
+  color: #ffffff;
+  font-size: 26px;
+  line-height: 1.2;
+}
+
+.subtitle {
+  margin: 8px 0 0;
+  color: #e3e8ff;
+  font-size: 13px;
+  max-width: 420px;
+}
+
+.primary-btn {
+  background: linear-gradient(120deg, #00c6ff, #0072ff);
   color: white;
-  font-size: 28px;
+  border: none;
+  border-radius: 12px;
+  padding: 11px 18px;
   font-weight: 600;
+  cursor: pointer;
+  transition: transform .2s ease, box-shadow .2s ease;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.primary-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
 }
 
 /* ADD BUTTON */
 .header button {
-  padding: 10px 18px;
-  background: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: 0.3s;
-}
-
-.header button:hover {
-  background: #45a049;
-  transform: scale(1.05);
+  font-size: 14px;
 }
 
 /* ================= GRID ================= */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 20px;
+  gap: 16px;
+  margin-top: 8px;
 }
 
 /* ================= CARD ================= */
 .card {
-  background: #ffffff;
-  padding: 20px;
+  background: #fcfcff;
   border-radius: 16px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-  transition: 0.3s ease;
+  border: 1px solid #e8ebff;
+  padding: 16px;
+  box-shadow: 0 7px 24px rgba(23, 42, 77, 0.12);
+  transition: 0.2s ease;
 }
 
 .card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+  transform: translateY(-4px);
+  box-shadow: 0 14px 28px rgba(20, 55, 110, 0.16);
 }
 
-/* ================= TOP ================= */
-.top {
+.card-top {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 8px;
 }
 
-.top h3 {
+.card h3 {
   margin: 0;
   font-size: 18px;
+  color: #111;
+}
+
+.ticker {
+  font-size: 11px;
+  color: #4b4f66;
+  background: #f3f6ff;
+  border-radius: 12px;
+  padding: 4px 8px;
   font-weight: 600;
 }
 
-/* ================= TICKER ================= */
-.ticker {
-  font-size: 12px;
-  background: #f1f1f1;
+.pill {
+  font-size: 11px;
+  background: #eef4ff;
+  color: #2d5ac8;
+  border-radius: 999px;
+  font-weight: 700;
   padding: 5px 10px;
-  border-radius: 8px;
-  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: .4px;
 }
 
-/* ================= PRICE ================= */
 .price {
-  font-size: 22px;
-  font-weight: bold;
-  margin: 15px 0;
-  color: #333;
+  font-size: 20px;
+  margin: 12px 0 4px;
+  font-weight: 700;
+  color: #222f57;
 }
 
-/* ================= BUTTON GROUP ================= */
+.meta {
+  margin: 0 0 12px;
+  color: #5f637c;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
 .actions {
   display: flex;
-  gap: 14px;              /* ✅ proper spacing */
-  margin-top: 15px;
+  gap: 10px;
 }
 
-/* COMMON BUTTON STYLE */
 .actions button {
-  flex: 1;              /* ✅ equal width */
-  padding: 10px 0;      /* ✅ same height */
-  border-radius: 10px;  /* ✅ rounded corners */
-  font-weight: 500;
+  flex: 1;
+  padding: 10px 8px;
+  border-radius: 10px;
+  font-weight: 600;
   cursor: pointer;
   border: none;
-  text-align: center;
-  transition: 0.3s;
+  font-size: 13px;
+  transition: 0.2s ease;
 }
 
-/* ================= EDIT BUTTON ================= */
 .edit-btn {
-  background: #4CAF50;
+  background: linear-gradient(120deg, #34d399, #10b981);
   color: white;
 }
 
 .edit-btn:hover {
-  background: #45a049;
-  transform: scale(1.03);
+  transform: scale(1.02);
 }
 
-/* ================= DELETE BUTTON ================= */
 .delete-btn {
-  background: #e53935;
+  background: linear-gradient(120deg, #f87171, #ef4444);
   color: white;
 }
 
 .delete-btn:hover {
-  background: #c62828;
-  transform: scale(1.03);
+  transform: scale(1.02);
 }
 
-/* ================= COLORS ================= */
-.green {
-  color: #2ecc71;
-}
+@media (max-width: 800px) {
+  .header {
+    flex-direction: column;
+    align-items: stretch;
+  }
 
-.red {
-  color: #e74c3c;
-}
-
-/* ================= RESPONSIVE ================= */
-@media (max-width: 768px) {
-  .grid {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  .primary-btn {
+    width: 100%;
+    margin-top: 8px;
   }
 }
