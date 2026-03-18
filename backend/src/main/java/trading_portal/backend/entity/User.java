@@ -1,15 +1,14 @@
 package trading_portal.backend.entity;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "users") // ✅ lowercase recommended
+@Table(name = "users")
 public class User {
 
     @Id
@@ -18,24 +17,18 @@ public class User {
 
     @Column(unique = true, nullable = false)
     private String email;
-
     private String password;
-
-    // ✅ FIXED (camelCase)
     private String firstName;
     private String lastName;
-
-    // ✅ FIXED ENUM
     @Enumerated(EnumType.STRING)
     private Roles role;
-
     private int age;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Portfolio> portfolios;
 
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdDate;
-
-    // getters & setters
 
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
@@ -57,4 +50,11 @@ public class User {
 
     public int getAge() { return age; }
     public void setAge(int age) { this.age = age; }
+    
+    public List<Portfolio> getPortfolios() {
+        return portfolios;
+    }
+    public void setPortfolios(List<Portfolio> portfolios) {
+        this.portfolios = portfolios;
+    }
 }
