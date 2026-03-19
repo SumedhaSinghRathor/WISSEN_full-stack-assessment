@@ -81,6 +81,9 @@
         <div class="open-price">
           Open: ₹{{selectedStock.opening_price | number:'1.2-2'}}
         </div>
+        <div class="open-price" style="margin-top:4px; font-weight:600; color:#1f2937;">
+          Available Shares: {{selectedStock.available_shares || 0}}
+        </div>
       </div>
 
       <!-- CHART -->
@@ -103,25 +106,19 @@
   <div class="modal-backdrop" *ngIf="showBuyModal">
     <div class="modal-box">
       <h3>Buy {{ buyModalStock?.name }}</h3>
+      <p style="margin:0 0 8px; color:#111; font-size:.95rem;">Available shares: {{buyModalStock?.available_shares || 0}}</p>
       <div style="display:flex; flex-direction:column; gap:8px;">
-        <label>
-          Quantity
-          <input type="number" min="1" [(ngModel)]="buyModalQty" />
-        </label>
-        <label>
-          Portfolio
-          <select [(ngModel)]="buyModalPortfolioId">
+        <div class="modal-field"><label>Quantity</label><input type="number" min="1" [(ngModel)]="buyModalQty" /></div>
+        <div class="modal-field"><label>Portfolio</label><select [(ngModel)]="buyModalPortfolioId">
             <option [ngValue]="null">Select portfolio</option>
             <option *ngFor="let p of portfolios" [ngValue]="p.id">{{ p.name }}</option>
-          </select>
-        </label>
-        <label>
-          Create portfolio
+          </select></div>
+        <div class="modal-field"><label>Create portfolio</label>
           <div style="display:flex; gap:8px; align-items:center;">
             <input type="text" [(ngModel)]="buyModalNewPortfolioName" placeholder="Name" />
             <button (click)="createPortfolioAndSelect()" type="button">Create</button>
           </div>
-        </label>
+        </div>
       </div>
       <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:12px;">
         <button (click)="closeBuyModal()" type="button">Cancel</button>

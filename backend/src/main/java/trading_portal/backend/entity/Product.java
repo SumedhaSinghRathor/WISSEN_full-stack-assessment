@@ -17,12 +17,19 @@ public class Product {
     private String type;
     @Column
     private Double opening_price;
+    private Integer available_shares = 1000;
     
     public int getAsset_id() {
         return asset_id;
     }
     public void setAsset_id(int asset_id) {
         this.asset_id = asset_id;
+    }
+    public Integer getAvailable_shares() {
+        return available_shares;
+    }
+    public void setAvailable_shares(Integer available_shares) {
+        this.available_shares = available_shares;
     }
     public String getTicker() {
         return ticker;

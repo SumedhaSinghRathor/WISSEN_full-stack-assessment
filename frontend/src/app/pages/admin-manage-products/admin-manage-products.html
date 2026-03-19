@@ -20,6 +20,7 @@
         </div>
 
         <p class="price">₹ {{ p.current_price | number:'1.2-2' }}</p>
+        <p class="subtitle">Available Shares: {{ p.available_shares || 0 }}</p>
 
         <div class="actions">
           <button class="edit-btn" (click)="edit(p)">✏ Edit</button>

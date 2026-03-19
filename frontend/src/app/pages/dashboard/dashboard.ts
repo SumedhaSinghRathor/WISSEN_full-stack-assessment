@@ -45,8 +45,16 @@ chartOptions = {
     legend: { display: false }
   },
   scales: {
-    x: { display: false },
-    y: { display: true }
+    x: {
+      display: true,
+      ticks: { color: '#111' },
+      grid: { color: '#e5e7eb' }
+    },
+    y: {
+      display: true,
+      ticks: { color: '#111' },
+      grid: { color: '#e5e7eb' }
+    }
   }
 };
   constructor(private service: ProductService, private tradeService: TradeService, private cdr: ChangeDetectorRef) { }

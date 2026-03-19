@@ -38,6 +38,9 @@ public class TradingServiceImpl implements TradingService {
         Product product = productRepo.findById(request.getProductId()).orElseThrow(() -> new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.NOT_FOUND, "Product not found"));
         if (request.getQuantity() <= 0) { throw new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.BAD_REQUEST, "Quantity must be > 0"); }
         if (request.getPortfolioId() == null) { throw new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.BAD_REQUEST, "portfolioId is required"); }
+        if (product.getAvailable_shares() == null || product.getAvailable_shares() < request.getQuantity()) {
+            throw new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.BAD_REQUEST, "Insufficient shares available to buy");
+        }
 
         Portfolio portfolio = portfolioMetaRepo.findById(request.getPortfolioId()).orElseThrow(() -> new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.NOT_FOUND, "Portfolio not found"));
         if (portfolio.getUserId() != request.getUserId()) {
@@ -47,6 +50,8 @@ public class TradingServiceImpl implements TradingService {
         double price = product.getCurrent_price();
         TradeTransaction tx = new TradeTransaction(request.getUserId(), portfolio.getId(), portfolio.getName(), product.getAsset_id(), product.getName(), product.getTicker(), request.getQuantity(), price, TransactionType.BUY);
         transactionRepo.save(tx);
+        product.setAvailable_shares(product.getAvailable_shares() - request.getQuantity());
+        productRepo.save(product);
 
         PortfolioPosition position = portfolioRepo.findByUserIdAndProductIdAndPortfolioId(request.getUserId(), product.getAsset_id(), portfolio.getId()).orElse(null);
         if (position == null) {
@@ -92,6 +97,8 @@ public class TradingServiceImpl implements TradingService {
         double price = product.getCurrent_price();
         TradeTransaction tx = new TradeTransaction(request.getUserId(), portfolio.getId(), portfolio.getName(), product.getAsset_id(), product.getName(), product.getTicker(), request.getQuantity(), price, TransactionType.SELL);
         transactionRepo.save(tx);
+        product.setAvailable_shares(product.getAvailable_shares() + request.getQuantity());
+        productRepo.save(product);
 
         position.setQuantity(position.getQuantity() - request.getQuantity());
         if (position.getQuantity() == 0) {

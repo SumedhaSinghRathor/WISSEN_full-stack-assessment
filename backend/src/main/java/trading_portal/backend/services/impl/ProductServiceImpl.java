@@ -21,7 +21,9 @@ public class ProductServiceImpl {
 
     public Product create(Product p) {
         p.setOpening_price(p.getCurrent_price());
-
+        if (p.getAvailable_shares() == null || p.getAvailable_shares() <= 0) {
+            p.setAvailable_shares(1000);
+        }
         return repo.save(p);
     }
 
@@ -31,6 +33,9 @@ public class ProductServiceImpl {
         existing.setTicker(p.getTicker());
         existing.setType(p.getType());
         existing.setCurrent_price(p.getCurrent_price());
+        if (p.getAvailable_shares() != null && p.getAvailable_shares() >= 0) {
+            existing.setAvailable_shares(p.getAvailable_shares());
+        }
         return repo.save(existing);
     }
 

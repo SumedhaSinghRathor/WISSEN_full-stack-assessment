@@ -16,7 +16,8 @@ export class AdminAddProductComponent {
   name: '',
   ticker: '',
   current_price: 0,
-  type: ''
+  type: '',
+  available_shares: 1000
 };
 
   constructor(private service: ProductService,private router: Router){}

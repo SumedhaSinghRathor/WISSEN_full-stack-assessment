@@ -5,6 +5,7 @@
   <input [(ngModel)]="product.ticker" placeholder="Ticker">
   <input [(ngModel)]="product.current_price" placeholder="Price" type="number">
   <input [(ngModel)]="product.type" placeholder="Type">
+  <input [(ngModel)]="product.available_shares" placeholder="Available Shares" type="number" min="0">
 
   <button (click)="update()">Update</button>
 </div>

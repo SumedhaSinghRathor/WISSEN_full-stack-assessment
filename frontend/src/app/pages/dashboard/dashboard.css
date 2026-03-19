@@ -212,10 +212,16 @@
 /* ===== STOCK SUMMARY ===== */
 .stock-summary {
   text-align: center;
+  color: #111827;
+}
+
+.stock-summary h3 {
+  color: #111827;
+  margin-bottom: 0.2rem;
 }
 
 .ticker-big {
-  color: gray;
+  color: #374151;
   font-size: 14px;
 }
 
@@ -223,12 +229,14 @@
   font-size: 28px;
   font-weight: bold;
   margin: 10px 0;
+  color: #111827;
 }
 
 .open-price {
   font-size: 14px;
-  color: gray;
+  color: #374151;
 }
+
 
 /* ===== CHART ===== */
 .chart-card {
@@ -280,9 +288,36 @@
 
 .modal-box button[type="button"]:nth-child(1) {
   background: #e5e7eb;
+  color:#111;
 }
 
 .modal-box button[type="button"]:nth-child(2) {
   background: #2563eb;
   color: #fff;
+}
+
+.modal-box input, .modal-box select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  margin-top: 4px;
+}
+
+.modal-box label {
+  color:#111;
+  font-weight:600;
+  display: block;
+}
+
+.modal-box .modal-field {
+  margin-bottom: 10px;
+}
+
+.modal-box .modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 12px;
 }

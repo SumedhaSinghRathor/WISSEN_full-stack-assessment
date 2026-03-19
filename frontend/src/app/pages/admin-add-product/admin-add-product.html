@@ -12,6 +12,7 @@
       <div class="form-group"><label>Ticker</label><input [(ngModel)]="product.ticker" name="ticker" placeholder="Ticker (e.g. MSFT)" required></div>
       <div class="form-group"><label>Current Price</label><input [(ngModel)]="product.current_price" name="current_price" type="number" placeholder="Current Price" required></div>
       <div class="form-group"><label>Type</label><select [(ngModel)]="product.type" name="type" required><option value="">Select Type</option><option value="STOCK">Stock</option><option value="CRYPTO">Crypto</option><option value="FOREX">Forex</option></select></div>
+      <div class="form-group"><label>Available Shares</label><input [(ngModel)]="product.available_shares" name="available_shares" type="number" min="0" required></div>
       <button class="primary-btn" type="submit">Add Asset</button>
     </form>
   </div>
