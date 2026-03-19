@@ -7,32 +7,33 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [FormsModule, CommonModule,RouterModule],
+  imports: [FormsModule, CommonModule, RouterModule],
   templateUrl: './register.html',
   styleUrl: './register.css',
 })
-
-
- 
 export class RegisterComponent {
-
   user = {
     firstName: '',
     lastName: '',
     email: '',
     password: '',
-    age: null
+    age: null,
+    role: 'USER',
   };
 
-  constructor(private auth: AuthService, private router: Router){}
+  constructor(
+    private auth: AuthService,
+    private router: Router,
+  ) {}
 
-  register(){
+  register() {
+    console.log(this.user);
     this.auth.register(this.user).subscribe({
       next: () => {
-        alert("Registered Successfully");
+        alert('Registered Successfully');
         this.router.navigate(['/']);
       },
-      error: () => alert("Error in registration")
+      error: () => alert('Error in registration'),
     });
   }
 }
