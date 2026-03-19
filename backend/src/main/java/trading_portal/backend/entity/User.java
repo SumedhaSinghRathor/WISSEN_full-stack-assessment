@@ -28,6 +28,7 @@ public class User {
     private Roles role;
 
     private int age;
+    private Double wallet = 100000.0;
 
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
@@ -55,4 +56,6 @@ public class User {
 
     public int getAge() { return age; }
     public void setAge(int age) { this.age = age; }
+    public Double getWallet() { return wallet; }
+    public void setWallet(Double wallet) { this.wallet = wallet; }
 }

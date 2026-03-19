@@ -1,22 +1,14 @@
 body {
-  font-family: Arial;
+  font-family: Arial, sans-serif;
   background: #f4f6f9;
 }
 
-.container {
-  width: 300px;
-  margin: 100px auto;
-  padding: 20px;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 0 10px #ccc;
-  text-align: center;
-}
-
+/* Keep defaults clean. Page-specific styles should control input width/margins. */
 input {
-  width: 90%;
-  margin: 10px;
-  padding: 10px;
+  width: auto;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 button {

@@ -23,6 +23,10 @@ export class AdminEditProductComponent implements OnInit {
     private cdr:ChangeDetectorRef
   ){}
 
+  goBack() {
+    window.history.back();
+  }
+
   ngOnInit(){
     this.id = this.route.snapshot.params['id'];
 

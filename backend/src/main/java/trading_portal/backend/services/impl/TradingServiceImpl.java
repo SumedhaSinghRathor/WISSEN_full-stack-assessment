@@ -9,10 +9,12 @@ import trading_portal.backend.entity.PortfolioPosition;
 import trading_portal.backend.entity.Product;
 import trading_portal.backend.entity.TradeTransaction;
 import trading_portal.backend.entity.TransactionType;
+import trading_portal.backend.entity.User;
 import trading_portal.backend.repository.PortfolioPositionRepository;
 import trading_portal.backend.repository.PortfolioRepository;
 import trading_portal.backend.repository.ProductRepository;
 import trading_portal.backend.repository.TradeTransactionRepository;
+import trading_portal.backend.repository.UserRepository;
 import trading_portal.backend.services.TradingService;
 
 import java.util.ArrayList;
@@ -23,6 +25,9 @@ public class TradingServiceImpl implements TradingService {
 
     @Autowired
     private ProductRepository productRepo;
+
+    @Autowired
+    private UserRepository userRepo;
 
     @Autowired
     private TradeTransactionRepository transactionRepo;
@@ -36,10 +41,16 @@ public class TradingServiceImpl implements TradingService {
     @Override
     public TradeTransaction buy(TradeRequest request) {
         Product product = productRepo.findById(request.getProductId()).orElseThrow(() -> new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.NOT_FOUND, "Product not found"));
+        User user = userRepo.findById(request.getUserId()).orElseThrow(() -> new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.NOT_FOUND, "User not found"));
         if (request.getQuantity() <= 0) { throw new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.BAD_REQUEST, "Quantity must be > 0"); }
         if (request.getPortfolioId() == null) { throw new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.BAD_REQUEST, "portfolioId is required"); }
         if (product.getAvailable_shares() == null || product.getAvailable_shares() < request.getQuantity()) {
             throw new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.BAD_REQUEST, "Insufficient shares available to buy");
+        }
+
+        double totalCost = request.getQuantity() * product.getCurrent_price();
+        if (user.getWallet() == null || user.getWallet() < totalCost) {
+            throw new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.BAD_REQUEST, "Insufficient wallet balance");
         }
 
         Portfolio portfolio = portfolioMetaRepo.findById(request.getPortfolioId()).orElseThrow(() -> new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.NOT_FOUND, "Portfolio not found"));
@@ -50,6 +61,8 @@ public class TradingServiceImpl implements TradingService {
         double price = product.getCurrent_price();
         TradeTransaction tx = new TradeTransaction(request.getUserId(), portfolio.getId(), portfolio.getName(), product.getAsset_id(), product.getName(), product.getTicker(), request.getQuantity(), price, TransactionType.BUY);
         transactionRepo.save(tx);
+        user.setWallet(user.getWallet() - totalCost);
+        userRepo.save(user);
         product.setAvailable_shares(product.getAvailable_shares() - request.getQuantity());
         productRepo.save(product);
 
@@ -88,6 +101,8 @@ public class TradingServiceImpl implements TradingService {
             throw new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.BAD_REQUEST, "Portfolio does not belong to user");
         }
 
+        User user = userRepo.findById(request.getUserId()).orElseThrow(() -> new RuntimeException("User not found"));
+
         PortfolioPosition position = portfolioRepo.findByUserIdAndProductIdAndPortfolioId(request.getUserId(), product.getAsset_id(), portfolio.getId())
                 .orElseThrow(() -> new RuntimeException("No position found for this stock in selected portfolio"));
         if (position.getQuantity() < request.getQuantity()) {
@@ -95,8 +110,11 @@ public class TradingServiceImpl implements TradingService {
         }
 
         double price = product.getCurrent_price();
+        double totalSale = request.getQuantity() * price;
         TradeTransaction tx = new TradeTransaction(request.getUserId(), portfolio.getId(), portfolio.getName(), product.getAsset_id(), product.getName(), product.getTicker(), request.getQuantity(), price, TransactionType.SELL);
         transactionRepo.save(tx);
+        user.setWallet((user.getWallet() == null ? 0.0 : user.getWallet()) + totalSale);
+        userRepo.save(user);
         product.setAvailable_shares(product.getAvailable_shares() + request.getQuantity());
         productRepo.save(product);
 

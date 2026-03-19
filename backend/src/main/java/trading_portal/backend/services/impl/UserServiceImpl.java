@@ -3,6 +3,8 @@ package trading_portal.backend.services.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import trading_portal.backend.dto.ChangePasswordRequest;
+import trading_portal.backend.dto.ChangePasswordRequest;
 import trading_portal.backend.dto.LoginResponse;
 import trading_portal.backend.entity.Roles;
 import trading_portal.backend.entity.User;
@@ -58,6 +60,47 @@ public class UserServiceImpl implements UserService {
                 user.getFirstName(),
                 user.getLastName(),
                 user.getEmail(),
-                user.getId());
+                user.getId(),
+                user.getWallet());
+    }
+
+    @Override
+    public String changePassword(ChangePasswordRequest request) {
+        if (request == null || request.getUserId() <= 0 || request.getCurrentPassword() == null || request.getCurrentPassword().isBlank()) {
+            throw new IllegalArgumentException("Invalid request data");
+        }
+
+        User user = userRepository.findById(request.getUserId())
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        if (!passwordEncoder.matches(request.getCurrentPassword(), user.getPassword())) {
+            throw new IllegalArgumentException("Current password is incorrect");
+        }
+        if (request.getNewPassword() == null || request.getNewPassword().length() < 6) {
+            throw new IllegalArgumentException("New password must be at least 6 characters");
+        }
+        user.setPassword(passwordEncoder.encode(request.getNewPassword()));
+        userRepository.save(user);
+        return "Password changed successfully";
+    }
+
+    @Override
+    public String addWalletAmount(int userId, double amount) {
+        if (userId <= 0) {
+            throw new IllegalArgumentException("Invalid user id");
+        }
+        if (amount <= 0) {
+            throw new IllegalArgumentException("Amount to add must be greater than 0");
+        }
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+        user.setWallet((user.getWallet() == null ? 0.0 : user.getWallet()) + amount);
+        userRepository.save(user);
+        return "Wallet updated successfully";
+    }
+
+    @Override
+    public User getUserById(int id) {
+        return userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
     }
 }

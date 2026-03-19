@@ -4,6 +4,7 @@ import { RegisterComponent } from './pages/register/register';
 import { DashboardComponent } from './pages/dashboard/dashboard';
 import { PortfolioComponent } from './pages/portfolio/portfolio';
 import { TransactionsComponent } from './pages/transactions/transactions';
+import { SettingsComponent } from './pages/settings/settings';
 import { AdminAddProductComponent } from './pages/admin-add-product/admin-add-product';
 import { AdminManageProductsComponent } from './pages/admin-manage-products/admin-manage-products';
 import { AdminEditProductComponent } from './pages/admin-edit-product/admin-edit-product';
@@ -16,6 +17,7 @@ export const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'portfolio', component: PortfolioComponent, canActivate: [AuthGuard] },
   { path: 'transactions', component: TransactionsComponent, canActivate: [AuthGuard] },
+  { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
   { path: 'admin/add-product', component: AdminAddProductComponent, canActivate: [AdminGuard] },
   { path: 'admin/manage-products', component: AdminManageProductsComponent, canActivate: [AdminGuard] },
   { path: 'admin/edit-product/:id', component: AdminEditProductComponent, canActivate: [AdminGuard] }

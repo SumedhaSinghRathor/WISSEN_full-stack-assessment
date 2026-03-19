@@ -9,6 +9,7 @@
           <span class="user-name">{{ name }}</span>
           <span *ngIf="role" class="user-role">{{ role.toUpperCase() }}</span>
         </div>
+        <a class="settings-link" routerLink="/settings">Settings</a>
         <button class="logout" (click)="logout()">Logout</button>
       </ng-container>
     </div>

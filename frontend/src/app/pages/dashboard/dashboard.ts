@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ProductService } from '../../services/product';
 import { TradeService } from '../../services/trade';
+import { AuthService } from '../../services/auth';
 import { ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgChartsModule } from 'ng2-charts';
@@ -22,6 +23,7 @@ export class DashboardComponent implements OnInit {
   newPortfolioName = '';
   priceSeries: number[] = [];
   userId = Number(localStorage.getItem('userId') || 1);
+  wallet = Number(localStorage.getItem('wallet') || 0);
   showBuyModal = false;
   buyModalStock: any = null;
   buyModalQty = 1;
@@ -57,12 +59,24 @@ chartOptions = {
     }
   }
 };
-  constructor(private service: ProductService, private tradeService: TradeService, private cdr: ChangeDetectorRef) { }
+  constructor(private service: ProductService, private tradeService: TradeService, private authService: AuthService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.loadData();
     this.loadPortfolios();
+    this.loadUserWallet();
     setInterval(() => this.loadData(), 1000);
+  }
+
+  loadUserWallet(){
+    if (!this.userId) return;
+    this.authService.getUser(this.userId).subscribe({
+      next:(res:any)=>{
+        this.wallet = res.wallet || 0;
+        localStorage.setItem('wallet', this.wallet.toString());
+      },
+      error:(err)=>console.log(err)
+    });
   }
 
   loadPortfolios() {
@@ -184,6 +198,7 @@ chartOptions = {
         this.buyQuantities[this.buyModalStock.asset_id] = 0;
         this.selectedPortfolioId = portfolioId;
         this.loadPortfolios();
+        this.loadUserWallet();
         this.tradeService.tradeChanged$.next();
         this.closeBuyModal();
       },

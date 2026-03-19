@@ -1,0 +1,30 @@
+ .page { padding: 20px; display:flex; justify-content:center; background: linear-gradient(180deg, #f5f7ff 0%, #eef2ff 100%); min-height: 100vh; }
+ .auth-card { width: min(480px,100%); background:#fff; border-radius:16px; padding:24px; box-shadow:0 16px 36px rgba(0,0,0,0.12); border:1px solid #edf2ff; }
+ .settings-card { border-left: 4px solid #2563eb; }
+ .auth-header { margin-bottom: 12px; }
+ .auth-header h2 { margin:0; color: #111827; }
+ .eyebrow { margin:0; font-size:0.75rem; color:#2563eb; letter-spacing:0.1em; text-transform:uppercase; font-weight:700; }
+ .subtext { margin:8px 0 0; color:#4b5563; font-size:0.9rem; }
+ .auth-form { margin-top: 10px; }
+ .top-row { margin-bottom: 12px; display:flex; justify-content:flex-start; }
+ .switch-row { display:flex; flex-direction:column; gap:6px; margin-bottom: 12px; }
+ .action-select { width: fit-content; padding: 7px 10px; border-radius: 8px; border: 1px solid #cbd5e1; background: #fff; }
+ .wallet-box { border: 1px solid #dbeafe; background: #eff6ff; padding: 10px; border-radius: 10px; margin-bottom: 12px; }
+ .wallet-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
+ .wallet-head label { font-size:0.9rem; color:#1d4ed8; font-weight:700; }
+ .wallet-value { font-size:0.95rem; font-weight:700; color:#111827; }
+ .wallet-row { display:flex; gap:8px; align-items:center; }
+ .wallet-row input { flex:1; width:auto; padding: 8px 10px; border-radius: 8px; border: 1px solid #cbd5e1; }
+ .small-btn { border: none; background: #2563eb; color: #fff; padding: 8px 12px; border-radius: 7px; cursor: pointer; font-weight: 700; }
+ .small-btn:hover { background: #1d4ed8; }
+ .form-group { margin-bottom: 14px; display:flex; flex-direction:column; gap:4px; }
+ .form-group label { color:#374151; font-weight:600; font-size:0.9rem; }
+ .form-group input { width:100%; max-width:100%; box-sizing:border-box; padding:10px 12px; border:1px solid #cbd5e1; border-radius:8px; background:#f9fafb; color:#111827; transition: border-color .2s ease, box-shadow .2s ease; }
+ .form-group input:focus { outline:none; border-color:#2563eb; box-shadow:0 0 0 3px rgba(37,99,235,0.15); background:#fff; }
+ .primary-btn { width:100%; background:#2563eb; color:#fff; border:none; border-radius:8px; padding:10px 14px; cursor:pointer; font-weight:700; letter-spacing:0.2px; transition: background .2s ease, transform .1s ease; }
+ .primary-btn:hover { background:#1d4ed8; transform: translateY(-1px); }
+ .link-btn { background: none; border: none; color: #2563eb; font-weight: 600; cursor: pointer; padding: 0; font-size: 0.92rem; }
+ .toast { margin-bottom: 10px; padding: 10px 12px; border-radius: 6px; font-weight: 600; color: #fff; background: #059669; box-shadow: 0 4px 10px rgba(0,0,0,0.08); }
+ .toast.error { background: #dc2626; }
+
+

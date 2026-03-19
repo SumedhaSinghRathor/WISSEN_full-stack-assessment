@@ -7,16 +7,18 @@ public class LoginResponse {
     private String lastName;
     private String email;
     private int userId;
+    private Double wallet;
 
     public LoginResponse() {}
 
-    public LoginResponse(String token, String role, String firstName, String lastName, String email, int userId) {
+    public LoginResponse(String token, String role, String firstName, String lastName, String email, int userId, Double wallet) {
         this.token = token;
         this.role = role;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.userId = userId;
+        this.wallet = wallet;
     }
 
     public String getToken() { return token; }
@@ -31,4 +33,6 @@ public class LoginResponse {
     public void setEmail(String email) { this.email = email; }
     public int getUserId() { return userId; }
     public void setUserId(int userId) { this.userId = userId; }
+    public Double getWallet() { return wallet; }
+    public void setWallet(Double wallet) { this.wallet = wallet; }
 }

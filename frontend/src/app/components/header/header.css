@@ -72,6 +72,19 @@
   letter-spacing: 0.4px;
 }
 
+.settings-link {
+  color: #fff;
+  background: #2563eb;
+  border-radius: 6px;
+  padding: 6px 10px;
+  text-decoration: none;
+  margin-right: 6px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.settings-link:hover { background: #1d4ed8; }
+
 .logout {
   border: none;
   background: #ef4444;

@@ -15,4 +15,16 @@ export class AuthService {
   login(data:any){
     return this.http.post(`${this.baseUrl}/login`, data);
   }
+
+  changePassword(data:any){
+    return this.http.put(`${this.baseUrl}/change-password`, data);
+  }
+
+  addWallet(data:any){
+    return this.http.put(`${this.baseUrl}/wallet`, data);
+  }
+
+  getUser(id:number){
+    return this.http.get(`http://localhost:8080/api/auth/user/${id}`);
+  }
 }

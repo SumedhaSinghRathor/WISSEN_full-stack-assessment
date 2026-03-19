@@ -14,10 +14,13 @@
         <button (click)="createPortfolio()" style="background:#0f172a; color:#fff; border:none; border-radius:6px; padding:6px 10px;">Create</button>
       </div>
     </div>
-    <div class="tabs">
-      <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
-      <a routerLink="/portfolio" routerLinkActive="active">Portfolio</a>
-      <a routerLink="/transactions" routerLinkActive="active">Transactions</a>
+    <div style="display:flex; gap:12px; align-items:center;">
+      <span style="font-weight:700; color:#8697bc;">Wallet: ₹{{wallet | number:'1.2-2'}}</span>
+      <div class="tabs">
+        <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+        <a routerLink="/portfolio" routerLinkActive="active">Portfolio</a>
+        <a routerLink="/transactions" routerLinkActive="active">Transactions</a>        
+        </div>
     </div>
   </div>
 

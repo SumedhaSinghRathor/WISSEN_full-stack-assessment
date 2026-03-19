@@ -1,11 +1,21 @@
-<div class="container">
-  <h2>Edit Product</h2>
+<div class="page product-edit-page">
+  <div class="card">
+    <div class="card-head">
+      <div>
+        <p class="eyebrow">Admin</p>
+        <h2>Edit Product</h2>
+        <p class="subtext">Update stock details and save changes.</p>
+      </div>
+      <button class="link-btn" type="button" (click)="goBack()">← Back</button>
+    </div>
 
-  <input [(ngModel)]="product.name" placeholder="product.name">
-  <input [(ngModel)]="product.ticker" placeholder="Ticker">
-  <input [(ngModel)]="product.current_price" placeholder="Price" type="number">
-  <input [(ngModel)]="product.type" placeholder="Type">
-  <input [(ngModel)]="product.available_shares" placeholder="Available Shares" type="number" min="0">
-
-  <button (click)="update()">Update</button>
+    <div class="form">
+      <div class="field"><label>Name</label><input [(ngModel)]="product.name" placeholder="Product name"></div>
+      <div class="field"><label>Ticker</label><input [(ngModel)]="product.ticker" placeholder="Ticker"></div>
+      <div class="field"><label>Price</label><input [(ngModel)]="product.current_price" placeholder="Price" type="number"></div>
+      <div class="field"><label>Type</label><input [(ngModel)]="product.type" placeholder="Type"></div>
+      <div class="field"><label>Available Shares</label><input [(ngModel)]="product.available_shares" placeholder="Available shares" type="number" min="0"></div>
+      <button class="primary-btn" (click)="update()">Save Product</button>
+    </div>
+  </div>
 </div>
